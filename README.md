@@ -1,4 +1,4 @@
-# Automated-Delta-Hedging-Portfolio
+# Automated-Delta-Hedging-Replicating-Portfolio
 
 In this notebook, I will describe the processes of creating an Automated Delta Hedging Portfolio of shorting a European call option by trading in the underlying stock and bank account.
 
@@ -19,6 +19,7 @@ For demonstration purposes, multiple assumptions will be used when pricing the o
 Underlying: NVDA (Nvidia Stock, assumed to be a non dividend-paying stock)<br/>
 https://sg.finance.yahoo.com/quote/NVDA/
 
+<br/>
 Option: NVDA250117C00000500 (Nvidia Call Option with maturity 17-Jan-2025, assumed to be a European call)
 https://sg.finance.yahoo.com/quote/NVDA250117C00000500/
 
