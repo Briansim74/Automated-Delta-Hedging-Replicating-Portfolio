@@ -11,9 +11,7 @@ https://sg.finance.yahoo.com/
 <br/>
 For demonstration purposes, multiple assumptions will be used when pricing the options and creating the replicating portfolio, which are listed below. The risk-free interest rate r is calculated from subtracting the inflation rate of Singapore from the yield of a 1-Year Singapore T-bill (r = 0.0034, as of Oct-2024).
 
-<br/>
-
-Underlying stock and option used in this replicating portfolio:
+<br/><b>Underlying stock and option used in this replicating portfolio:</b>
 
 Underlying: NVDA (Nvidia Stock, assumed to be a non dividend-paying stock)
 https://sg.finance.yahoo.com/quote/NVDA/
