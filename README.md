@@ -14,12 +14,15 @@ For demonstration purposes, multiple assumptions will be used when pricing the o
 <br/>
 <br/><b>Underlying stock and option used in this replicating portfolio:</b>
 
+<br/>
+<br/>
 Underlying: NVDA (Nvidia Stock, assumed to be a non dividend-paying stock)<br/>
 https://sg.finance.yahoo.com/quote/NVDA/
 
 Option: NVDA250117C00000500 (Nvidia Call Option with maturity 17-Jan-2025, assumed to be a European call)
 https://sg.finance.yahoo.com/quote/NVDA250117C00000500/
 
+<br/>
 <br/>
 The automation of the script can be seen in my personal portfolio:
 
