@@ -1,6 +1,6 @@
 # Automated-Delta-Hedging-Replicating-Portfolio
 
-In this notebook, I will describe the processes of creating an Automated Delta Hedging Portfolio of shorting a European call option by trading in the underlying stock and bank account.
+In this notebook, I will describe the processes of creating an Automated Delta Hedging Replicating Portfolio of shorting an NVDA European call option by trading in the underlying stock and bank account.
 
 <br/>
 
@@ -9,14 +9,14 @@ Yahoo Finance will be the website to scrape the financial data.
 https://sg.finance.yahoo.com/
 
 <br/>
-For demonstration purposes, multiple assumptions will be used when pricing the options and creating the replicating portfolio, which are listed below. The risk-free interest rate r is calculated from subtracting the inflation rate of Singapore from the yield of a 1-Year Singapore T-bill (r = 0.0034, as of Oct-2024).
+The Nvidia call option will be assumed to be a European type call option. The risk-free interest rate r is calculated from subtracting the inflation rate of Singapore from the yield of a 1-Year Singapore T-bill (r = 0.0034, as of Oct-2024).
 
 <br/>
 <br/><b>Underlying stock and option used in this replicating portfolio:</b>
 
 <br/>
 <br/>
-Underlying: NVDA (Nvidia Stock, assumed to be a non dividend-paying stock)<br/>
+Underlying: NVDA (Nvidia Stock, with dividends)<br/>
 https://sg.finance.yahoo.com/quote/NVDA/<br />
 
 <br/>
@@ -59,14 +59,15 @@ Using Selenium, I scraped all the relevant data from the NVDA stock as well as t
 
 1. Stock Price
 2. Strike Price
-3. Maturity of option
-4. Annual Volatility (Calculated using 20-day volatility of NVDA stock)
+3. Annual Dividend Yield
+4. Maturity of option
+5. Annual Volatility (Calculated using 20-day volatility of NVDA stock)
 
 After gathering all the relevant data from the underlying and call, I proceeded to calculate the remaining variables needed to create a replicating portfolio. These are:
 
 1. Black-Scholes-Merton (BSM) price of the call option
 2. Delta of option
-3. Time to Maturity of option (Years)
+3. Time to maturity of option (Years)
 
 To calculate the time to maturity of the option, I used the pytz library to compute the current local time in New York and pegging it to the maturity time of 11:59:00 on 25-Jan-2025 as the maturity date and time.
 
@@ -77,7 +78,7 @@ To create the replicating portfolio, I first calculated the delta of the option,
 <br/>
 Delta: 0.507
 <br/>
-Value of Shares = 0.507 x 138.00 = 69.98
+Value of shares = 0.507 x 138.00 = 69.98
 <br/>
 Amount borrowed from bank = 69.98 - Call Price = 69.98 - 13.97 = 56.01
 
