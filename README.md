@@ -84,6 +84,7 @@ Amount borrowed from bank = 69.98 - Call Price = 69.98 - 13.97 = 56.01
 <br />
 The value of the replicating portfolio X(0) would then be delta number of shares - amount borrowed from bank = 0.507 * S - 56.01.
 
+<br/><br/>
 After that, I processed the relevant data into a Pandas DataFrame with relevant column names. I then exported the DataFrame into a CSV file to be stored in my Ubuntu Desktop.
 
 Using the pyodbc driver, I then connected to the Microsoft Azure SQL cloud database where the dbo.NVDA SQL Table exists.
@@ -117,7 +118,7 @@ Current value of replicating portfolio = 0.507 * 138.00 - 56.01 = 13.97
 <br/>
 Profit = Replicating portfolio - current call price = 13.97 - 13.97 = 0.00
 
-<br />
+<br/><br/>
 Each time, the profit would be calculated from the cost of closing the short position of the NVDA250117C00000500 option, by subtracting the current value of the replicating portfolio (wealth) by the current call price of the option.
 
 The current profit can be then analysed and set by a system to automatically close this position once it reaches above a certain threshold (Eg. profit >= $12.00)
