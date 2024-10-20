@@ -17,7 +17,7 @@ For demonstration purposes, multiple assumptions will be used when pricing the o
 <br/>
 <br/>
 Underlying: NVDA (Nvidia Stock, assumed to be a non dividend-paying stock)<br/>
-https://sg.finance.yahoo.com/quote/NVDA/
+https://sg.finance.yahoo.com/quote/NVDA/<br />
 
 <br/>
 Option: NVDA250117C00000500 (Nvidia Call Option with maturity 17-Jan-2025, assumed to be a European call)
