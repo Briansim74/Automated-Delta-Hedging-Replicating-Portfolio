@@ -51,6 +51,7 @@ https://briansim74-portfolio.webflow.io/projects/xml
 1. Yahoo.ipynb
 2. NVDA.csv
 3. NVDA_Query.sql
+4. cron.txt
 
 <br/><b>Developing the script</b>
 
