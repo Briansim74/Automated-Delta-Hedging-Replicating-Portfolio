@@ -75,10 +75,14 @@ Creating the replicating portfolio
 
 To create the replicating portfolio, I first calculated the delta of the option, which turned out to be 0.507 on 19-Oct-2024 00:44:57 (GMT -4). The replicating portfolio is made by shorting 1 NVDA NVDA250117C00000500 call option, and buying long 0.507 shares of the underlying. The remaining difference would be covered by shorting (borrowing from) the bank.
 
+<br/>
 Delta: 0.507
+<br/>
 Value of Shares = 0.507 x 138.00 = 69.98
+<br/>
 Amount borrowed from bank = 69.98 - Call Price = 69.98 - 13.97 = 56.01
 
+<br/>
 The value of the replicating portfolio X(0) would then be delta number of shares - amount borrowed from bank = 0.507 * S - 56.01.
 
 After that, I processed the relevant data into a Pandas DataFrame with relevant column names. I then exported the DataFrame into a CSV file to be stored in my Ubuntu Desktop.
@@ -93,17 +97,28 @@ I utilised Ubuntu Linux for the automation of the script. I started a new Cronjo
 
 Each time the script is ran, it will rebalance the hedge, by calculating the current stock price, call price, time to maturity and delta. Each time the delta changes, the current number of shares would be updated to the value of the new delta, and the profit from selling the change in delta of shares would be paid back to the bank to cover the debt incurred, with interest.
 
+<br/>
 Current stock price = 138.00
+<br/>
 Current call price = 13.97
+<br/>
 Current delta: 0.507 (19-Oct-2024 00:44:57)
+<br/>
 New delta: 0.507 (19-Oct-2024 01:10:15)
+<br/>
 Change in delta = New delta - current delta = 0.507 - 0.507 = 0.000
+<br/>
 Profit from selling 0.000 shares = 0.000
+<br/>
 Current amount owed to bank before / after interest (r = 0.0034) = 56.01 / 56.01
+<br/>
 New amount owed to bank = Amount after interest - profit from selling shares = 56.01 - 0.000 = 56.01
+<br/>
 Current value of replicating portfolio = 0.507 * 138.00 - 56.01 = 13.97
+<br/>
 Profit = Replicating portfolio - current call price = 13.97 - 13.97 = 0.00
 
+<br/>
 Each time, the profit would be calculated from the cost of closing the short position of the NVDA250117C00000500 option, by subtracting the current value of the replicating portfolio (wealth) by the current call price of the option.
 
 The current profit can be then analysed and set by a system to automatically close this position once it reaches above a certain threshold (Eg. profit >= $12.00)
