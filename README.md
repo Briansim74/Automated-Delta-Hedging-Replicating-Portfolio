@@ -91,7 +91,7 @@ In the same script, I added a command to execute the BCP utility to bulk copy th
 
 I utilised Ubuntu Linux for the automation of the script. I started a new Cronjob on Crontab, an automatic task scheduler, whereby I set the Python script to run every minute, thus updating the Azure SQL database every minute with new data.
 
-Each time the script is ran, it will calculate the current stock price, call price, time to maturity and delta. Each time the delta changes, the current number of shares would be updated to the value of the new delta, and the profit from selling the change in delta of shares would be paid back to the bank to cover the debt incurred, with interest.
+Each time the script is ran, it will rebalance the hedge, by calculating the current stock price, call price, time to maturity and delta. Each time the delta changes, the current number of shares would be updated to the value of the new delta, and the profit from selling the change in delta of shares would be paid back to the bank to cover the debt incurred, with interest.
 
 Current stock price = 138.00
 Current call price = 13.97
