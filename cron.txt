@@ -23,5 +23,5 @@
 # 
 # m h  dom mon dow   command
 
-* * * * * /usr/bin/python3 /home/briansim74/Desktop/Yahoo.py
+*/5 * * * * /usr/bin/python3 /home/briansim74/Desktop/Yahoo.py
 
