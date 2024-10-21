@@ -27,7 +27,7 @@ https://sg.finance.yahoo.com/quote/NVDA250117C00000500/
 <br />
 The automation of the script can be seen in my personal portfolio:
 
-https://briansim74-portfolio.webflow.io/projects/xml
+https://briansim74-portfolio.webflow.io/projects/hedgingportfolio
 
 
 <br/><b>This script utilises the following programs & languages:</b>
