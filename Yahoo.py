@@ -8,8 +8,6 @@ Original file is located at
 
 """# **To be ran every hour:**"""
 
-time_sleep = 0.8
-
 #stock to search
 option = 'NVDA250117C00140000'
 ticker = 'NVDA'
@@ -56,8 +54,7 @@ def c(S, K, r, y, τ, σ):
   return S * np.exp(-y * (τ)) * N(d1) - K * np.exp(-r * (τ)) * N(d2)
 
 df = pd.read_csv('/home/briansim74/Desktop/NVDA.csv')
-
-#df.head()
+df.head()
 
 #go to NVDA stock page
 url = "https://sg.finance.yahoo.com/quote/"+ ticker + "/"
@@ -66,7 +63,7 @@ url = "https://sg.finance.yahoo.com/quote/"+ ticker + "/"
 driver.get(url)
 
 # Wait for the page to load
-time.sleep(time_sleep)
+time.sleep(0.7)
 
 S = float(driver.find_elements(By.XPATH, '/html/body/div[2]/main/section/section/section/article/section[1]/div[2]/div[1]/section/div/section[1]/div[1]/fin-streamer[1]')[0].text.splitlines()[0])
 
@@ -75,36 +72,49 @@ y = float(re.findall(r'\(.*?\)', driver.find_elements(By.XPATH, '//*[@id="nimbus
 print("Stock Price:", S)
 print("Dividend Yield:", y)
 
-# get historical data for volatility
-historical = driver.find_element(By.XPATH, '//*[@id="nimbus-app"]/section/section/aside/section/nav/ul/li[5]/a')
-# create action chain object
-action = ActionChains(driver)
-# click the item
-action.click(on_element = historical)
-# perform the operation
-action.perform()
+def vol():
+  # get historical data for volatility
+  historical = driver.find_element(By.XPATH, '//*[@id="nimbus-app"]/section/section/aside/section/nav/ul/li[5]/a')
+  # create action chain object
+  action = ActionChains(driver)
+  # click the item
+  action.click(on_element = historical)
+  # perform the operation
+  action.perform()
 
-time.sleep(time_sleep)
+  time.sleep(0.7)
 
-#20 day average volatility
-days = 20
+  #20 day average volatility
+  days = 20
 
-historical_table = driver.find_elements(By.XPATH, '//*[@id="nimbus-app"]/section/section/section/article/div[1]/div[3]/table')[0].text.splitlines()
+  historical_table = driver.find_elements(By.XPATH, '//*[@id="nimbus-app"]/section/section/section/article/div[1]/div[3]/table')[0].text.splitlines()
 
-vol_row_log = []
-Y = []
+  vol_row_log = []
+  Y = []
 
-for i in range(days):
-  adj_close = float((historical_table[i + 3].split())[-2])
-  vol_row_log.append(log(adj_close))
+  for i in range(days):
+    adj_close = float((historical_table[i + 3].split())[-2])
+    vol_row_log.append(log(adj_close))
 
-for i in range(days - 1):
-  Y.append(vol_row_log[i] - vol_row_log[i+1])
+  for i in range(days - 1):
+    Y.append(vol_row_log[i] - vol_row_log[i+1])
 
-Y_avg = statistics.fmean(Y)
+  Y_avg = statistics.fmean(Y)
 
-#get annual volatility
-vol = sqrt(sum((np.array(Y) - Y_avg)**2) / (days - 1)) * sqrt(252)
+  #get annual volatility
+  vol = sqrt(sum((np.array(Y) - Y_avg)**2) / (days - 1)) * sqrt(252)
+
+  return vol
+
+date = datetime.now(tz=pytz.timezone('America/New_York')).replace(microsecond = 0).replace(tzinfo=None).date()
+
+previous_date = datetime.strptime(df['Date_Time'].iloc[-1], '%Y-%m-%d %H:%M:%S').date()
+
+if(date == previous_date):
+  vol = df['Vol'].iloc[-1]
+else:
+  vol = vol()
+
 print("20 day volatility:", vol)
 
 #go to options page to get strike price and call price
@@ -114,7 +124,7 @@ url = "https://sg.finance.yahoo.com/quote/"+ option + "/"
 driver.get(url)
 
 # Wait for the page to load
-time.sleep(time_sleep)
+time.sleep(0.7)
 
 option_table = driver.find_elements(By.XPATH, '//*[@id="nimbus-app"]/section/section/section/article/div[2]')[0].text.splitlines()
 
@@ -144,7 +154,7 @@ tau_seconds = float(time_to_maturity.days) * 24 * 3600 + float(time_to_maturity.
 tau_years = tau_seconds / (365 * 24 * 3600)
 #print(tau_years, "years")
 
-bsm_price = c(S, K, r, y, tau_years, vol)
+bsm_price = c(S, K, r, 0, tau_years, vol)
 print("Call_Price:", call_price)
 print("BSM_Price:", bsm_price)
 
@@ -152,7 +162,7 @@ delta = df['Delta'].iloc[-1]
 
 K = df['Strike_Price'].iloc[0]
 
-new_delta = deltac(S, K, r, y, tau_years, vol) #vols to be calculated daily
+new_delta = deltac(S, K, r, 0, tau_years, vol) #vols to be calculated daily
 
 print("Current delta:", delta)
 print("New delta:", new_delta)
@@ -163,7 +173,7 @@ change_in_delta = delta - new_delta
 print("Change in delta:", change_in_delta)
 
 previous_date = datetime.strptime(df['Date_Time'].iloc[-1], '%Y-%m-%d %H:%M:%S')
-print("Previous date:", previous_date)
+#print("Previous date:", previous_date)
 
 elapsed_days = (date - previous_date).days
 elapsed_seconds = (date - previous_date).seconds
@@ -172,7 +182,7 @@ elapsed_time_seconds = elapsed_days * 24 * 3600 + elapsed_seconds
 #print("Elapsed time (seconds):", elapsed_time_seconds)
 
 elapsed_time_years = elapsed_time_seconds / (365 * 24 * 3600)
-print("Elapsed time (years):", elapsed_time_years)
+#print("Elapsed time (years):", elapsed_time_years)
 
 #profit from selling shares
 share_profit = change_in_delta * S
@@ -190,30 +200,27 @@ new_amount = amount - share_profit
 print("New amount owed to bank after repaying profit from change in shares:", new_amount)
 
 #wealth
-portfolio = delta * S - new_amount
+portfolio = new_delta * S - new_amount
 print("Value of Replicating Portfolio:", portfolio)
 
-#current profit
-profit = format(portfolio - call_price, '.10f')
-print("Profit from Closing Position:", profit)
+#current profit without hedging
+profit_without_hedge = float(df['Call_Price'].iloc[0] - call_price)
+print("Profit from closing position without hedge:", profit_without_hedge)
+
+#current profit with hedging
+profit = float(format(portfolio - call_price, '.10f'))
+print("Profit from closing position with hedge:", profit)
 
 #add new row
-row = [date, maturity, S, K, new_amount, r, y, vol, bsm_price, call_price, delta, portfolio, profit]
+row = [date, maturity, S, K, new_amount, r, y, vol, bsm_price, call_price, new_delta, portfolio, profit_without_hedge, profit]
 
 df.loc[len(df.index)] = row
 #df.head()
 
-#df.head()
-
 """# **Scripting**"""
 
-#stock to search
-option = 'NVDA250117C00140000'
-ticker = 'NVDA'
-r = 0.0034 #risk free sg rate as of oct 2024
-
 #connect to Azure SQL server using pyodbc
-server = '*****'
+server = '*****.database.windows.net'
 database = '*****'
 username = '*****'
 password = '*****'
