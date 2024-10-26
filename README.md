@@ -48,7 +48,7 @@ https://briansim74-portfolio.webflow.io/projects/hedgingportfolio
 7. Microsoft Azure SQL Database - SQL Cloud database for updating replicating portfolio
 
 <br/><b>The following files for reference for this script are:</b>
-1. Yahoo_Full_Code.ipynb (Creation of Replicating Portfolio)
+1. Yahoo_Full_Script.ipynb (Creation of Replicating Portfolio)
 2. Yahoo.py (Script)
 3. NVDA.csv
 4. NVDA_Query.sql
