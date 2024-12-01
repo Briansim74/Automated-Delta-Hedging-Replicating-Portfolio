@@ -53,6 +53,7 @@ https://briansim74-portfolio.webflow.io/projects/hedgingportfolio
 3. NVDA.csv
 4. NVDA_Query.sql
 5. cron.txt
+6. Delta_Hedge.mp4
 
 <br/><b>Developing the script</b>
 
@@ -127,6 +128,8 @@ Profit with hedging = Replicating portfolio - current call price = 17.0658432085
 
 <br/><br/>
 Each time, the profit would be calculated from the cost of closing the short position of the NVDA250117C00000500 option, by subtracting the current value of the replicating portfolio (wealth) by the current call price of the option.
+
+Delta_Hedge.mp4 shows the automation of the script.
 
 As shown above, if there was no hedging, the current profit of the portfolio after closing the short position of the call would be much less or even negative compared with the hedged position.
 
