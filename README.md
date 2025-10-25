@@ -1,6 +1,8 @@
 # Automated-Delta-Hedging-Replicating-Portfolio
 
-In this notebook, I will describe the processes of creating an Automated Delta Hedging Replicating Portfolio of shorting an NVDA European call option by trading in the underlying stock and bank account. The portfolio strategy I am attempting to create would be a short gamma / short vega / receiving theta portfolio. In this portfolio, I expect the market within this period to have small moves, thus hedging this portfolio from losses due to short gamma / short vega exposure. Theta can be collected from the shorted call, and holding this portfolio till maturity.
+In this notebook, I will describe the processes of creating an Automated Delta Hedging Replicating Portfolio of shorting an NVDA European call option by trading in the underlying stock and bank account. The portfolio strategy I am attempting to create would be a short gamma / short vega / receiving theta portfolio. 
+
+In this portfolio, I expect the market within this period to have small moves, thus hedging this portfolio from losses due to short gamma / short vega exposure. Theta can be collected from the shorted call, and holding this portfolio till maturity. Market makers might run these delta neutral positions when selling options on the market, collecting theta and hedging delta, provided risk management accounts for volatility.
 
 <br/>
 
